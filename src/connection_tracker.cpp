@@ -6,10 +6,6 @@
 
 namespace DPI {
 
-// ============================================================================
-// ConnectionTracker Implementation
-// ============================================================================
-
 ConnectionTracker::ConnectionTracker(int fp_id, size_t max_connections)
     : fp_id_(fp_id), max_connections_(max_connections) {
 }
@@ -21,12 +17,11 @@ Connection* ConnectionTracker::getOrCreateConnection(const FiveTuple& tuple) {
         return &it->second;
     }
     
-    // Check if we need to evict old connections
+
     if (connections_.size() >= max_connections_) {
         evictOldest();
     }
     
-    // Create new connection
     Connection conn;
     conn.tuple = tuple;
     conn.state = ConnectionState::NEW;
@@ -45,7 +40,7 @@ Connection* ConnectionTracker::getConnection(const FiveTuple& tuple) {
         return &it->second;
     }
     
-    // Try reverse tuple (for bidirectional matching)
+
     auto rev = connections_.find(tuple.reverse());
     if (rev != connections_.end()) {
         return &rev->second;
@@ -161,9 +156,6 @@ void ConnectionTracker::evictOldest() {
     connections_.erase(oldest);
 }
 
-// ============================================================================
-// GlobalConnectionTable Implementation
-// ============================================================================
 
 GlobalConnectionTable::GlobalConnectionTable(size_t num_fps) {
     trackers_.resize(num_fps, nullptr);
