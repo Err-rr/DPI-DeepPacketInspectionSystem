@@ -7,9 +7,8 @@
 
 namespace DPI {
 
-// ============================================================================
+
 // DPIEngine Implementation
-// ============================================================================
 
 DPIEngine::DPIEngine(const Config& config)
     : config_(config), output_queue_(10000) {
@@ -328,9 +327,9 @@ void DPIEngine::writeOutputPacket(const PacketJob& job) {
     output_file_.write(reinterpret_cast<const char*>(job.data.data()), job.data.size());
 }
 
-// ============================================================================
+
 // Rule Management API
-// ============================================================================
+
 
 void DPIEngine::blockIP(const std::string& ip) {
     if (rule_manager_) {
@@ -401,9 +400,9 @@ bool DPIEngine::saveRules(const std::string& filename) {
     return false;
 }
 
-// ============================================================================
+
 // Reporting
-// ============================================================================
+
 
 std::string DPIEngine::generateReport() const {
     std::ostringstream ss;
@@ -484,4 +483,4 @@ void DPIEngine::printStatus() const {
     }
 }
 
-} // namespace DPI
+} 
