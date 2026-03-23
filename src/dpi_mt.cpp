@@ -25,9 +25,9 @@
 using namespace PacketAnalyzer;
 using namespace DPI;
 
-// =============================================================================
+
 // Thread-Safe Queue
-// =============================================================================
+
 template<typename T>
 class TSQueue {
 public:
@@ -77,9 +77,8 @@ private:
     std::atomic<bool> shutdown_;
 };
 
-// =============================================================================
 // Packet Job - Contains all packet data (self-contained, no pointers)
-// =============================================================================
+
 struct Packet {
     uint32_t id;
     uint32_t ts_sec;
@@ -91,9 +90,9 @@ struct Packet {
     size_t payload_length;
 };
 
-// =============================================================================
+
 // Flow Entry
-// =============================================================================
+
 struct FlowEntry {
     FiveTuple tuple;
     AppType app_type = AppType::UNKNOWN;
@@ -104,9 +103,8 @@ struct FlowEntry {
     bool classified = false;
 };
 
-// =============================================================================
 // Blocking Rules
-// =============================================================================
+
 class Rules {
 public:
     void blockIP(const std::string& ip) {
@@ -160,9 +158,8 @@ private:
     std::vector<std::string> blocked_domains_;
 };
 
-// =============================================================================
 // Statistics (thread-safe)
-// =============================================================================
+
 struct Stats {
     std::atomic<uint64_t> total_packets{0};
     std::atomic<uint64_t> total_bytes{0};
@@ -185,9 +182,9 @@ struct Stats {
     }
 };
 
-// =============================================================================
+
 // Fast Path Processor (one per FP thread)
-// =============================================================================
+
 class FastPath {
 public:
     FastPath(int id, Rules* rules, Stats* stats, TSQueue<Packet>* output_queue)
@@ -300,9 +297,9 @@ private:
     }
 };
 
-// =============================================================================
+
 // Load Balancer (one per LB thread)
-// =============================================================================
+
 class LoadBalancer {
 public:
     LoadBalancer(int id, std::vector<FastPath*> fps)
@@ -348,9 +345,8 @@ private:
     }
 };
 
-// =============================================================================
 // DPI Engine
-// =============================================================================
+
 class DPIEngine {
 public:
     struct Config {
