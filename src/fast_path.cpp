@@ -289,7 +289,7 @@ FastPathProcessor::FPStats FastPathProcessor::getStats() const {
 
 
 // FPManager Implementation
-// ============================================================================
+
 
 FPManager::FPManager(int num_fps,
                      RuleManager* rule_manager,
