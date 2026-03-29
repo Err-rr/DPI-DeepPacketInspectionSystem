@@ -4,9 +4,9 @@
 
 namespace DPI {
 
-// ============================================================================
+
 // LoadBalancer Implementation
-// ============================================================================
+
 
 LoadBalancer::LoadBalancer(int lb_id,
                            std::vector<ThreadSafeQueue<PacketJob>*> fp_queues,
@@ -85,9 +85,9 @@ LoadBalancer::LBStats LoadBalancer::getStats() const {
     return stats;
 }
 
-// ============================================================================
+
 // LBManager Implementation
-// ============================================================================
+
 
 LBManager::LBManager(int num_lbs, int fps_per_lb,
                      std::vector<ThreadSafeQueue<PacketJob>*> fp_queues)
