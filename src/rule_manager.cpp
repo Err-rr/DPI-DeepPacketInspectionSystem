@@ -6,9 +6,9 @@
 
 namespace DPI {
 
-// ============================================================================
+
 // IP Blocking
-// ============================================================================
+
 
 uint32_t RuleManager::parseIP(const std::string& ip) {
     uint32_t result = 0;
@@ -72,9 +72,8 @@ std::vector<std::string> RuleManager::getBlockedIPs() const {
     return result;
 }
 
-// ============================================================================
+
 // Application Blocking
-// ============================================================================
 
 void RuleManager::blockApp(AppType app) {
     std::unique_lock<std::shared_mutex> lock(app_mutex_);
@@ -98,9 +97,9 @@ std::vector<AppType> RuleManager::getBlockedApps() const {
     return std::vector<AppType>(blocked_apps_.begin(), blocked_apps_.end());
 }
 
-// ============================================================================
+
 // Domain Blocking
-// ============================================================================
+
 
 void RuleManager::blockDomain(const std::string& domain) {
     std::unique_lock<std::shared_mutex> lock(domain_mutex_);
@@ -182,9 +181,9 @@ std::vector<std::string> RuleManager::getBlockedDomains() const {
     return result;
 }
 
-// ============================================================================
+
 // Port Blocking
-// ============================================================================
+
 
 void RuleManager::blockPort(uint16_t port) {
     std::unique_lock<std::shared_mutex> lock(port_mutex_);
@@ -202,9 +201,9 @@ bool RuleManager::isPortBlocked(uint16_t port) const {
     return blocked_ports_.count(port) > 0;
 }
 
-// ============================================================================
+
 // Combined Check
-// ============================================================================
+
 
 std::optional<RuleManager::BlockReason> RuleManager::shouldBlock(
     uint32_t src_ip,
@@ -235,9 +234,8 @@ std::optional<RuleManager::BlockReason> RuleManager::shouldBlock(
     return std::nullopt;
 }
 
-// ============================================================================
 // Persistence
-// ============================================================================
+
 
 bool RuleManager::saveRules(const std::string& filename) const {
     std::ofstream file(filename);
