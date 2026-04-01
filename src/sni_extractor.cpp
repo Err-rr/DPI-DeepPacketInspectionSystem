@@ -4,9 +4,7 @@
 
 namespace DPI {
 
-// ============================================================================
 // TLS SNI Extractor Implementation
-// ============================================================================
 
 uint16_t SNIExtractor::readUint16BE(const uint8_t* data) {
     return (static_cast<uint16_t>(data[0]) << 8) | data[1];
@@ -137,9 +135,7 @@ std::vector<std::pair<uint16_t, std::string>> SNIExtractor::extractExtensions(
     return extensions;
 }
 
-// ============================================================================
 // HTTP Host Header Extractor Implementation
-// ============================================================================
 
 bool HTTPHostExtractor::isHTTPRequest(const uint8_t* payload, size_t length) {
     if (length < 4) return false;
@@ -202,9 +198,7 @@ std::optional<std::string> HTTPHostExtractor::extract(const uint8_t* payload, si
     return std::nullopt;
 }
 
-// ============================================================================
 // DNS Extractor Implementation
-// ============================================================================
 
 bool DNSExtractor::isDNSQuery(const uint8_t* payload, size_t length) {
     // Minimum DNS header is 12 bytes
@@ -256,9 +250,7 @@ std::optional<std::string> DNSExtractor::extractQuery(const uint8_t* payload, si
     return domain.empty() ? std::nullopt : std::optional<std::string>(domain);
 }
 
-// ============================================================================
 // QUIC SNI Extractor (simplified)
-// ============================================================================
 
 bool QUICSNIExtractor::isQUICInitial(const uint8_t* payload, size_t length) {
     if (length < 5) return false;
