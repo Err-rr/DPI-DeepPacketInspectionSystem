@@ -11,9 +11,7 @@
 
 namespace DPI {
 
-// ============================================================================
 // Five-Tuple: Uniquely identifies a connection/flow
-// ============================================================================
 struct FiveTuple {
     uint32_t src_ip;
     uint32_t dst_ip;
@@ -51,9 +49,7 @@ struct FiveTupleHash {
     }
 };
 
-// ============================================================================
 // Application Classification
-// ============================================================================
 enum class AppType {
     UNKNOWN = 0,
     HTTP,
@@ -86,9 +82,7 @@ enum class AppType {
 std::string appTypeToString(AppType type);
 AppType sniToAppType(const std::string& sni);
 
-// ============================================================================
 // Connection State
-// ============================================================================
 enum class ConnectionState {
     NEW,
     ESTABLISHED,
@@ -97,9 +91,7 @@ enum class ConnectionState {
     CLOSED
 };
 
-// ============================================================================
 // Packet Action (what to do with the packet)
-// ============================================================================
 enum class PacketAction {
     FORWARD,    // Send to internet
     DROP,       // Block/drop the packet
@@ -107,9 +99,7 @@ enum class PacketAction {
     LOG_ONLY    // Forward but log
 };
 
-// ============================================================================
 // Connection Entry (tracked per flow)
-// ============================================================================
 struct Connection {
     FiveTuple tuple;
     ConnectionState state = ConnectionState::NEW;
@@ -132,9 +122,7 @@ struct Connection {
     bool fin_seen = false;
 };
 
-// ============================================================================
 // Packet wrapper for queue passing
-// ============================================================================
 struct PacketJob {
     uint32_t packet_id;
     FiveTuple tuple;
@@ -152,9 +140,7 @@ struct PacketJob {
     uint32_t ts_usec;
 };
 
-// ============================================================================
 // Statistics - uses regular uint64_t, protected by mutex externally
-// ============================================================================
 struct DPIStats {
     std::atomic<uint64_t> total_packets{0};
     std::atomic<uint64_t> total_bytes{0};
