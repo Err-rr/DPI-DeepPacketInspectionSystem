@@ -20,5 +20,4 @@ add_executable(packet_analyzer ${SOURCES})
 
 # For macOS, we might need to link against system libraries later
 if(APPLE)
-    # Add any macOS-specific settings here
 endif()
